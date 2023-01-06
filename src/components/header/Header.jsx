@@ -1,18 +1,19 @@
 import React from 'react';
-import { HiSun, HiMoon } from 'react-icons/hi';
+import { HiMoon, HiSun } from 'react-icons/hi';
 import { useDarkMode } from '../../context/DarkModeContext';
 
-const Header = ({ filters, onFilteredClick }) => {
+const Header = ({ filters, onFilteredTodo }) => {
   const { darkMode, toggleDarkMode } = useDarkMode();
   return (
     <nav>
       <button onClick={toggleDarkMode}>
-        {darkMode ? <HiMoon /> : <HiSun />}
+        {!darkMode && <HiMoon />}
+        {darkMode && <HiSun />}
       </button>
       <ul>
         {filters.map((value, index) => (
           <li key={index}>
-            <button onClick={() => onFilteredClick(value)}>{value}</button>
+            <button onClick={() => onFilteredTodo(value)}>{value}</button>
           </li>
         ))}
       </ul>

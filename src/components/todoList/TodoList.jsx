@@ -3,23 +3,24 @@ import AddTodo from '../addTodo/AddTodo';
 import Todo from '../todo/Todo';
 
 const TodoList = ({ filter }) => {
-  const [todos, setTodos] = useState([
-    { id: '1', item: 'Studying', status: 'active' },
-    { id: '2', item: 'WorkOut', status: 'active' },
+  const [toDos, setToDos] = useState([
+    { id: '1', text: 'Studying', status: 'Active' },
+    { id: '2', text: 'Buying Milk', status: 'Active' },
   ]);
 
-  const handleAddToDo = (todo) => {
-    setTodos((prev) => [...prev, todo]);
+  const handleAddTodo = (todo) => {
+    setToDos([...toDos, todo]);
   };
 
   const handleUpdate = (updated) => {
-    setTodos(todos.map((todo) => (todo.id === updated.id ? updated : todo)));
+    setToDos(toDos.map((item) => (item.id === updated.id ? updated : item)));
   };
 
-  const handleDelete = (deleted) =>
-    setTodos(todos.filter((t) => t.id !== deleted.id));
+  const handleDelete = (deleted) => {
+    setToDos(toDos.filter((item) => item.id !== deleted.id));
+  };
 
-  const filtered = getFilteredItems(todos, filter);
+  const filtered = getFilteredTodos(toDos, filter);
 
   return (
     <section>
@@ -33,16 +34,15 @@ const TodoList = ({ filter }) => {
           />
         ))}
       </ul>
-      <AddTodo onAdd={handleAddToDo} />
+      <AddTodo onAdd={handleAddTodo} />
     </section>
   );
 };
 
-function getFilteredItems(todos, filter) {
+function getFilteredTodos(toDos, filter) {
   if (filter === 'All') {
-    return todos;
+    return toDos;
   }
-  return todos.filter((t) => t.status === filter);
+  return toDos.filter((todo) => todo.status === filter);
 }
-
 export default TodoList;

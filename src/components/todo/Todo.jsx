@@ -2,22 +2,34 @@ import React from 'react';
 import { BsTrashFill } from 'react-icons/bs';
 
 const Todo = ({ todo, onUpdate, onDelete }) => {
-  const { item, status } = todo;
+  const { text, status } = todo;
+
   const handleChange = (e) => {
-    const status = e.target.checked ? 'Complete' : 'Active';
+    const status = e.target.checked ? 'Completed' : 'Active';
     onUpdate({ ...todo, status });
   };
-  const handleDelete = () => onDelete(todo);
+
+  const handleDelete = () => {
+    onDelete(todo);
+  };
+
   return (
-    <section>
-      <li>
-        <input type='checkbox' id='checkbox' onChange={handleChange} />
-        <label htmlFor='checkbox'>{item}</label>
-        <button>
-          <BsTrashFill onClick={handleDelete} />
+    // <section>
+    <li>
+      <input
+        type='checkbox'
+        id='checkbox'
+        checked={status === 'Completed'}
+        onChange={handleChange}
+      />
+      <label htmlFor='checkbox'>{text}</label>
+      <span>
+        <button onClick={handleDelete}>
+          <BsTrashFill />
         </button>
-      </li>
-    </section>
+      </span>
+    </li>
+    // </section>
   );
 };
 
